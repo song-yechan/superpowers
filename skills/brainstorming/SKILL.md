@@ -7,9 +7,9 @@ description: "You MUST use this before any creative work - creating features, bu
 
 ## Overview
 
-Help turn ideas into fully formed designs and specs through natural collaborative dialogue.
+Help turn ideas into fully formed designs and specs through natural collaborative dialogue. Always communicate in the user's language (follow CLAUDE.md language setting).
 
-Start by understanding the current project context, then ask questions one at a time to refine the idea. Once you understand what you're building, present the design and get user approval.
+Start by assessing clarity of the request, then understand the current project context, ask questions one at a time to refine the idea. Once you understand what you're building, present the design and get user approval.
 
 <HARD-GATE>
 Do NOT invoke any implementation skill, write any code, scaffold any project, or take any implementation action until you have presented a design and the user has approved it. This applies to EVERY project regardless of perceived simplicity.
@@ -23,6 +23,7 @@ Every project goes through this process. A todo list, a single-function utility,
 
 You MUST create a task for each of these items and complete them in order:
 
+0. **Phase 0: Clarity Check** — Is the request clear enough to act on? If NOT, use AskUserQuestion to present hypothesis-as-options (never guess and proceed). If the request is already specific and actionable, move to step 1 immediately.
 1. **Explore project context** — check files, docs, recent commits
 2. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 3. **Propose 2-3 approaches** — with trade-offs and your recommendation
@@ -34,6 +35,7 @@ You MUST create a task for each of these items and complete them in order:
 
 ```dot
 digraph brainstorming {
+    "Phase 0: Clarity Check" [shape=box];
     "Explore project context" [shape=box];
     "Ask clarifying questions" [shape=box];
     "Propose 2-3 approaches" [shape=box];
@@ -42,6 +44,8 @@ digraph brainstorming {
     "Write design doc" [shape=box];
     "Invoke writing-plans skill" [shape=doublecircle];
 
+    "Phase 0: Clarity Check" -> "Explore project context" [label="clear"];
+    "Phase 0: Clarity Check" -> "Phase 0: Clarity Check" [label="vague, ask user"];
     "Explore project context" -> "Ask clarifying questions";
     "Ask clarifying questions" -> "Propose 2-3 approaches";
     "Propose 2-3 approaches" -> "Present design sections";
@@ -67,6 +71,7 @@ digraph brainstorming {
 - Propose 2-3 different approaches with trade-offs
 - Present options conversationally with your recommendation and reasoning
 - Lead with your recommended option and explain why
+- If the work involves UI components or pages, invoke `ui-ux-pro-max` skill to ground style/color/font decisions in data rather than guessing aesthetics
 
 **Presenting the design:**
 - Once you believe you understand what you're building, present the design
